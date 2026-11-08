@@ -17,7 +17,7 @@ namespace DepartureBoard
         {
             displayForm.Show();
             Ti_Sub.Enabled = true;
-            Ti_Scroll.Enabled = true;
+            //Ti_Scroll.Enabled = true;
             if (File.Exists("last.txt"))
                 TB_main.Text = File.ReadAllText("last.txt");
 
@@ -133,7 +133,7 @@ namespace DepartureBoard
                 m = 1;
             foreach (var item in t[m])
             {
-                var text = item[0];
+                var text = item[0].Replace("　", "  ");
                 var color = "1";
                 var backColor = "0";
                 if (item.Length > 1)
@@ -144,7 +144,7 @@ namespace DepartureBoard
                 for (int i = 0; i < text.Length; i++)
                 {
                     var dot = dotJson[((int)((char)text[i])).ToString()]?.ToString();
-                    if (dot is null)
+                    if (dot is null || dot.Length < 2)
                         continue;
                     var dotL = dot.Split("\n");
                     for (int j = 0; j < 16; j++)
